@@ -2,29 +2,53 @@ import streamlit as st
 from datetime import datetime
 
 # ---- App Config ----
-st.set_page_config(page_title="AgriConnect", layout="wide", page_icon="🌱")
+st.set_page_config(page_title="Agknow", layout="wide", page_icon="🌱")
+
+# ---- Custom CSS for Styling ----
+st.markdown("""
+    <style>
+        body {
+            background-color: #f4f9f4;
+        }
+        .main {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        h1, h2, h3, h4, h5 {
+            color: #2f7336;
+        }
+        .stButton > button {
+            background-color: #56ab2f;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+        .stButton > button:hover {
+            background-color: #3b7721;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # ---- Sidebar ----
-# Removed logo image
-st.sidebar.markdown("""
-    <h2 style='color: green;'>🌿 AgriConnect</h2>
-    <p style='color: #555;'>Empowering the Agri-Ecosystem</p>
-""", unsafe_allow_html=True)
+st.sidebar.markdown("""<h1 style='color:#56ab2f;'>🌾 Agknow</h1>""", unsafe_allow_html=True)
+st.sidebar.markdown("Empowering the Agricultural Ecosystem 🌱")
 user_type = st.sidebar.selectbox("Who are you?", ["Farmer", "Buyer", "Agri-Industry", "Student", "Consumer", "Researcher"])
 crop_interest = st.sidebar.text_input("Your Primary Crop Interest (e.g., Tomato)")
-st.sidebar.markdown("---")
+st.sidebar.markdown("___")
 
-# ---- Header ----
+# ---- Header Section ----
 st.markdown("""
-    <div style='background: linear-gradient(to right, #a8e063, #56ab2f); padding: 25px; border-radius: 15px;'>
-        <h1 style='text-align: center; color: white;'>🌾 AgriConnect</h1>
-        <h4 style='text-align: center; color: #f1f1f1;'>Bringing Together Farmers, Buyers, Experts & More</h4>
-    </div>
+<div style="background: linear-gradient(to right, #56ab2f, #a8e063); border-radius: 15px; padding: 30px;">
+    <h1 style="color: white; text-align: center;">Agknow: Smart Agri Network</h1>
+    <p style="color: #f5f5f5; text-align: center;">Connecting Growers, Buyers, Experts, and Innovators for Sustainable Agriculture</p>
+</div>
 """, unsafe_allow_html=True)
 
 # ---- Section: Crop Feed ----
-st.markdown("<br>", unsafe_allow_html=True)
-st.subheader(f"📢 Updates & Opportunities for {crop_interest.title() if crop_interest else 'Your Crop'}")
+st.markdown("### 📢 Crop-Specific Feed")
+st.markdown(f"#### For: **{crop_interest.title() if crop_interest else 'Your Crop'}**")
+
 col1, col2 = st.columns([2, 1])
 
 with col1:
@@ -37,14 +61,13 @@ with col1:
 
 with col2:
     with st.container():
-        st.metric("Today’s Market Price (Tomato)", "₹14/kg", "+₹2")
-        st.metric("Top Buyer Near You", "FreshKart Ltd.")
+        st.metric("📈 Today’s Market Price", "₹14/kg", "+₹2")
+        st.metric("🏆 Top Buyer Nearby", "FreshKart Ltd.")
         st.button("🌟 View All Opportunities")
 
 # ---- Section: Connect ----
-st.markdown("<br>", unsafe_allow_html=True)
-st.subheader("🌐 Connect with Others")
-connect_type = st.selectbox("Select Category to Connect", ["Farmers", "Buyers", "Industries", "Experts", "Students"])
+st.markdown("### 🌐 Connect with Agri Stakeholders")
+connect_type = st.selectbox("Choose Group to Connect", ["Farmers", "Buyers", "Industries", "Experts", "Students"])
 
 with st.container():
     if connect_type == "Farmers":
@@ -59,37 +82,41 @@ with st.container():
         st.info("🎓 **Dr. Anjali** – Tomato Disease Specialist, TNAU")
         st.info("🎓 **Mr. Senthil** – Smart Irrigation Consultant")
     else:
-        st.write("👨‍🎓 **Arun R** – Final Year Agri Student, Project on Tomato Tech")
+        st.info("👨‍🎓 **Arun R** – Final Year Agri Student, Project on Tomato Tech")
 
-# ---- Section: Post/Share ----
-st.markdown("<br>", unsafe_allow_html=True)
-st.subheader("📣 Share Your Update")
+# ---- Section: Share Your Post ----
+st.markdown("### 📣 Share Your Update")
 with st.form("post_form"):
-    post_text = st.text_area("What's happening in your field or lab?", height=150)
+    post_text = st.text_area("What's happening in your field, market, or lab?", height=150)
     file = st.file_uploader("Upload Image or Report", type=["jpg", "png", "pdf"])
-    submitted = st.form_submit_button("🚀 Post Update")
+    submitted = st.form_submit_button("🚀 Post Now")
     if submitted:
         st.balloons()
-        st.success("✅ Your post has been shared successfully!")
+        st.success("✅ Your update has been posted successfully!")
 
-# ---- New Section: Events & Trainings ----
-st.markdown("<br>", unsafe_allow_html=True)
-st.subheader("🎓 Events & Trainings")
-with st.container():
-    st.info("🗓️ **Soil Health Management Workshop** – June 20, Trichy")
-    st.info("🗓️ **AI in Agriculture Hackathon** – July 2, Online")
+# ---- Section: Events & Trainings ----
+st.markdown("### 🎓 Upcoming Events & Webinars")
+event_col1, event_col2 = st.columns(2)
+with event_col1:
+    st.info("🗓️ **Soil Health Workshop** – June 20, Trichy")
     st.info("🗓️ **Certified Organic Farming Course** – Starting June 10")
+with event_col2:
+    st.info("🗓️ **AI in Agriculture Hackathon** – July 2, Online")
 
-# ---- New Section: Jobs & Internships ----
-st.markdown("<br>", unsafe_allow_html=True)
-st.subheader("💼 Jobs & Internships")
-with st.container():
+# ---- Section: Jobs & Internships ----
+st.markdown("### 💼 Jobs & Internships")
+job_col1, job_col2 = st.columns(2)
+with job_col1:
     st.warning("🔎 **Field Officer (Tomato Contracts)** – TomatoKing Exports")
     st.success("🎓 **Internship: Smart Agri Devices** – Final Year Project, Coimbatore")
+with job_col2:
     st.info("💼 **Agri-Marketing Manager** – FreshKart Ltd.")
+    st.info("🧪 **Research Intern** – AgriTech Labs, Chennai")
 
 # ---- Footer ----
 st.markdown("<hr style='border: 1px solid #ccc;'>", unsafe_allow_html=True)
 st.markdown("""
-    <p style='text-align: center; color: #888;'>© 2025 AgriConnect | Made with ❤️ for Farmers</p>
+    <div style='text-align: center; color: #888;'>
+        © 2025 <strong>Agknow</strong> | Made with ❤️ for India's Agricultural Future
+    </div>
 """, unsafe_allow_html=True)
